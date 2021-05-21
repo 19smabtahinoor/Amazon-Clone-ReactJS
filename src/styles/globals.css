@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .link{
+        @apply  cursor-pointer hover:underline;
+    }
+
+    .button{
+        @apply p-3 font-semibold text-xs md:text-sm bg-gradient-to-b from-yellow-200 to-yellow-400 border border-yellow-300 rounded-sm focus:outline-none focus:ring-2 focus:ring-yellow-500 active:from-yellow-500;
+    }
+
+}
+
+body::-webkit-scrollbar{
+    width:5px;
+}
+body::-webkit-scrollbar-thumb{
+    background:#F59E0B;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+body::-webkit-scrollbar-track{
+    background:#131921;
+}
