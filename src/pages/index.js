@@ -27,8 +27,10 @@ export default function Home({products}) {
   );
 }
 
+// https://course-api.com/react-store-products
+// https://fakestoreapi.com/products/
 export async function getServerSideProps(context){
-  const products = await fetch("https://fakestoreapi.com/products/")
+  const products = await fetch("https://course-api.com/react-store-products/")
   .then(res => res.json())
   // .then(data=>console.log(data))
 
