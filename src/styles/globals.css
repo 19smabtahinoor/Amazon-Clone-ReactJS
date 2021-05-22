@@ -14,19 +14,9 @@
 }
 
 body::-webkit-scrollbar{
-    width:5px;
+    display:none;
 }
-body::-webkit-scrollbar-thumb{
-    background:#F59E0B;
-    border-radius: 50px;
-    -webkit-border-radius: 50px;
-    -moz-border-radius: 50px;
-    -ms-border-radius: 50px;
-    -o-border-radius: 50px;
-}
-body::-webkit-scrollbar-track{
-    background:#131921;
-}
+
 
 .productCard{
     transform:scale(1);
