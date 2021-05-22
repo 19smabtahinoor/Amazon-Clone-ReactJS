@@ -9,12 +9,13 @@ function Product({id,title,price,description,category,image }) {
     const[rating] = useState(
         Math.floor(Math.random() * (MAX_RATING - MIN_RITING + 1)) + MIN_RITING
     )
-    const [hasPrime] = useState(Math.random() < 0.5)
+    // const [hasPrime] = useState(Math.random() < 0.5)
+    const [hasPrime] = useState("Prime")
     return (
         <div className="relative flex flex-col m-5 bg-white p-8 z-30 rounded-lg">
             <p className="absolute top-2 right-2 p-1 rounded text-xs text-gray-600 bg-yellow-400  z-30">{category}</p>
             <Image src={image} width={200} height={200} objectFit="contain"/>
-            <h4 className="font-bold my-2">{title}</h4>
+            <h4 className="font-bold my-2 line-clamp-1">{title}</h4>
 
             <div className="flex">
             {Array(rating).fill().map((_,i) => (
@@ -28,12 +29,14 @@ function Product({id,title,price,description,category,image }) {
                  <Currency quantity={price} />
              </div>
 
+      
              {hasPrime && (
-                 <div className="flex space-x-2 items-center my-3">
+                 <div className="flex space-x-2 items-center">
                      <img className="w-12 h-12" src="https://links.papareact.com/fdw" alt="primeimage"/>
                      <p className="text-sm font-semibold text-gray-500">FREE Next-day Delivery</p>
                  </div>
              )}
+
              <button className="button mt-3">ADD TO BUSKETS</button>
         </div>
     );

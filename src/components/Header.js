@@ -1,6 +1,11 @@
 import React from 'react';
 import Image from 'next/image'
+import { signIn, signOut, useSession } from 'next-auth/client'
+
+
 function Header() {
+    const [session] = useSession()
+
     return (
         <>
             <header>
@@ -23,9 +28,10 @@ function Header() {
                     </div>
 
                     {/* right */}
-                    <div className="text-white mx-6 flex items-center text-xs space-x-6 whitespace-nowrap">
-                        <div className="link">
-                            <p>Hello Kabid</p>
+                    <div  className="text-white mx-6 flex items-center text-xs space-x-6 whitespace-nowrap">
+                    <img src={session ? `${session.user.image}`:'https://toppng.com/uploads/preview/file-svg-user-icon-material-desi-11563317072p2p27gjccw.png'} alt="profileimg" className="flex w-10 h-10 rounded-full -mr-3"/>
+                        <div className="link" onClick={!session? signIn:signOut}>
+                            <p>{session ? `Hello, ${session.user.name}`:"Sign In"}</p>
                             <p className="font-extrabold md:text-sm">Account & Lists</p>
                         </div>
 
