@@ -6,13 +6,42 @@ import Header from '../components/Header'
 import { selectItems, selectTotal } from "../slices/basketSlice";
 import CheckOutProduct from '../components/CheckOutProduct'
 import Currency from 'react-currency-formatter'
-
-
 import {useSession } from "next-auth/client";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
+
+
+
+const stripePromise = loadStripe(process.env.stripe_public_key);
+
 function checkout() {
     const [session] = useSession()
     const items = useSelector(selectItems)
     const total = useSelector(selectTotal)
+
+    const createCheckoutSession = async () => {
+        const stripe = await stripePromise;
+
+        //Call the backend to create a checkout session
+
+        const checkoutSession = await axios.post('/api/create-checkout-session',
+        {
+            items:items,
+            email:session.user.email
+        });
+
+    
+        //Redirect user to checkout
+        const result = await stripe.redirectToCheckout({
+            sessionId:checkoutSession.data.id
+        })
+ 
+        if(result.error){
+            alert(result.error.message);
+        };
+    }
+
+
     return (
         <div className="bg-gray-100">
             <Head>
@@ -25,7 +54,7 @@ function checkout() {
             <main className="lg:flex max-w-screen-2xl mx-auto">
                 
                 {/* Left */}
-                <div className="flex flex-col  m-5 shadow-sm">
+                <div className="flex flex-col  m-5 shadow-sm checkoutBanner">
                     <Image
                         src="https://links.papareact.com/ikj"
                         width={1020}
@@ -42,7 +71,7 @@ function checkout() {
                     {items.map((item,index) => (
                         <CheckOutProduct
                             key={index}
-                            name={item.name}
+                            title={item.title}
                             price={item.price}
                             description={item.description}
                             category={item.category}
@@ -53,7 +82,7 @@ function checkout() {
                 </div>
 
                 {/* Right */}
-                <div className="flex flex-col bg-white p-10 shadow-md">
+                <div className="flex flex-col bg-white p-10 shadow-md checkoutBanner">
                 {items.length > 0 &&(
                     <>
                     <h2 className="whitespace-nowrap">Subtotal ({items.length} items) : 
@@ -64,6 +93,8 @@ function checkout() {
                     </h2>
 
                     <button 
+                    onClick={createCheckoutSession}
+                    role="link"
                     disabled={!session}
                     className={`button mt-2 ${!session && "from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed "}`}>
                         {!session ? 'Sign in to checkout' : 'Procced to checkout'}

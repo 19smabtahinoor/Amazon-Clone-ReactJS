@@ -10,13 +10,13 @@ const MAX_RATING = 5
 const MIN_RITING = 1
 
 
-function CheckOutProduct({ id, name, price, description, category, image }) {
+function CheckOutProduct({ id, title, price, description, category, image }) {
 
     const dispatch = useDispatch()
 
     const addItemToBusket = () => {
         const product = {
-            id, name, price, description, category, image
+            id, title, price, description, category, image
         }
 
         //Sending the product as an action to the REDUX store..the basket slice
@@ -32,13 +32,13 @@ function CheckOutProduct({ id, name, price, description, category, image }) {
     const [hasPrime] = useState(Math.random() < 0.5)
     // const [hasPrime] = useState("Prime")
     return (
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 bg-gray-200 box-border p-6 rounded-lg">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-5 bg-white box-border p-6 rounded-lg shadow-lg">
             <div className="rounded-lg checkoutImageWrapper shadow-xl">
                 <img src={image} className="productCheckOutImage rounded-lg " />
             </div>
 
             <div className="lg:col-span-3 xl:col-span-3 mx-5 sm:mx-3">
-            <h4 className="font-bold my-2 line-clamp-1">{name}</h4>
+            <h4 className="font-bold my-2 line-clamp-1">{title}</h4>
 
             <div className="flex">
                 {Array(rating).fill().map((_, i) => (

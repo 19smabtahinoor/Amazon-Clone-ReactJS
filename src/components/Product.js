@@ -56,7 +56,7 @@ import { addToBasket } from '../slices/basketSlice';
 const MAX_RATING = 5
 const MIN_RITING = 1
 
-function Product({ id, name, price, description, category, image }) {
+function Product({ id, title, price, description, category, image }) {
     const dispatch = useDispatch()
 
     const [rating] = useState(
@@ -67,7 +67,7 @@ function Product({ id, name, price, description, category, image }) {
 
     const addItemToBusket = () => {
         const product = {
-            id, name, price, description, category, image
+            id, title, price, description, category, image
         }
 
         //Sending the product as an action to the REDUX store..the basket slice
@@ -81,7 +81,7 @@ function Product({ id, name, price, description, category, image }) {
             <div className="productImagewrapper rounded-lg mt-3">
             <img src={image} className="productImage rounded-lg" />
             </div>
-            <h4 className="font-bold my-2 line-clamp-1">{name}</h4>
+            <h4 className="font-bold my-2 line-clamp-1">{title}</h4>
 
             <div className="flex">
                 {Array(rating).fill().map((_, i) => (
